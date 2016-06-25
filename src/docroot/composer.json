@@ -8,7 +8,7 @@
   },
   "require-dev": {
     "phpunit/PHPUnit": "~3.7",
-    "axyr/silverstripe-ideannotator": "^2",
+    "axyr/silverstripe-ideannotator": "~2",
     "lekoala/silverstripe-debugbar": "dev-master"
   },
   "config": {

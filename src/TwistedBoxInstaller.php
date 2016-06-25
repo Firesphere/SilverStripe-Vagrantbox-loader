@@ -19,7 +19,7 @@ class TwistedBoxInstaller
         echo "\nCreating project $projectName\n";
         if (!file_exists($projectName)) {
             if(!mkdir($projectName) && !is_dir($projectName)) {
-                throw new RuntimeException("\nError creating project $projectName");
+                throw new RuntimeException("Error creating project $projectName");
             }
             self::installBase($projectName, $gitSource);
             self::startVagrant($projectName);
@@ -38,10 +38,10 @@ class TwistedBoxInstaller
         $deleteGitDir = false;
         if ($gitSource === null) {
             echo "\nCreating Silverstripe Base in docroot\n";
-            $gitSource = 'git@github.com:silverstripe/silverstripe-installer.git';
+            $gitSource = 'git@github.com:silverstripe/silverstripe-installer.git -b master';
             $deleteGitDir = true;
         } else {
-            echo "\nCloning your base project in docroot\nRemove the .git directory before running git init\n";
+            echo "\nCloning your base project in docroot\n";
         }
         echo "\nThis shouldn't take too long\n";
         shell_exec('cd ' . $projectName . ';git clone ' . $gitSource . ' docroot');
