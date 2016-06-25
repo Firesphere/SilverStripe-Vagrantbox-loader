@@ -48,7 +48,7 @@ class TwistedBoxInstaller
         copy(__DIR__ . '/docroot/_ss_environment.php', $projectName . '/docroot/_ss_environment.php');
         if($deleteGitDir) {
             echo "\nNew empty project, Deleting git root from silverstripe-installer\n";
-            shell_exec("rm -r $projectName/docroot/.git");
+            shell_exec("rm -rf $projectName/docroot/.git");
         }
         echo "\nSilverStripe base installation created\n";
     }
