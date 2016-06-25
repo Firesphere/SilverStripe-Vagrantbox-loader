@@ -86,8 +86,30 @@ class TwistedBoxInstaller
      */
     public static function tearDown($projectName)
     {
-        echo "\nDestroying vagrant box in $projectName\n";
-        shell_exec('cd ' . $projectName . ';vagrant halt;vagrant destroy -y');
+        echo "\nDestroying vagrant box in $projectName\nYou might be asked to confirm destruction of this box.\n";
+        echo shell_exec('cd ' . $projectName . ';vagrant halt;vagrant destroy -f');
         echo "\nVagrantbox in $projectName destroyed\nYour project is still safe, don't worry\n\n";
+    }
+
+    /** Below are experimental methos to improve useability. Not yet live */
+    /**
+     * @param string $projectName
+     */
+    public static function halt($projectName) {
+        echo "\nHalting $projectName's Vagrantmachine";
+        shell_exec('cd ' . $projectName . ';vagrant halt');
+        echo "\nMachine halted\n";
+    }
+
+    /**
+     * @param string $projectName
+     */
+    public static function reload($projectName) {
+        echo "\nHalting $projectName's Vagrantmachine";
+        shell_exec('cd ' . $projectName . ';vagrant halt');
+        echo "\nMachine halted\n";
+        echo "\Starting $projectName's Vagrantmachine";
+        shell_exec('cd ' . $projectName . ';vagrant up');
+        echo "\nMachine started\n";
     }
 }
