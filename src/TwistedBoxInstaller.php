@@ -49,7 +49,11 @@ class TwistedBoxInstaller
         if($deleteGitDir) {
             echo "\nNew empty project, Deleting git root from silverstripe-installer\n";
             shell_exec("rm -rf $projectName/docroot/.git");
+            echo "\nInitialising empty repository in docroot\n";
+            shell_exec("cd $projectName/docroot;git init");
         }
+        echo "\nCreating SilverStripe Cache folder\n";
+        mkdir("$projectName/docroot/silverstripe-cache");
         echo "\nSilverStripe base installation created\n";
     }
 
@@ -61,7 +65,7 @@ class TwistedBoxInstaller
     {
         echo "\nBooting Vagrant machine, please have a bit of patience!\n";
         copy(__DIR__ . '/Vagrantfile', $projectName . '/Vagrantfile');
-        echo shell_exec('cd ' . $projectName . ';vagrant up');
+        shell_exec('cd ' . $projectName . ';vagrant up');
         echo "\nVagrant is running\n";
     }
 
@@ -72,7 +76,8 @@ class TwistedBoxInstaller
     private static function runComposer($projectName)
     {
         echo "\nRunning composer\n";
-        echo shell_exec('cd ' . $projectName . '/docroot;composer update');
+        copy(__DIR__ . '/docroot/composer.json', $projectName . '/docroot/composer.json');
+        shell_exec('cd ' . $projectName . '/docroot;composer update');
         echo "\nSystem ready to run now, visit http://localhost:8080 to see your website\n\n";
     }
 
@@ -82,7 +87,7 @@ class TwistedBoxInstaller
     public static function tearDown($projectName)
     {
         echo "\nDestroying vagrant box in $projectName\n";
-        echo shell_exec('cd ' . $projectName . ';vagrant halt;vagrant destroy');
+        shell_exec('cd ' . $projectName . ';vagrant halt;vagrant destroy -y');
         echo "\nVagrantbox in $projectName destroyed\nYour project is still safe, don't worry\n\n";
     }
 }

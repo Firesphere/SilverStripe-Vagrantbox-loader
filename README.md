@@ -50,6 +50,8 @@ For testing purposes, we're not using the ini configuration that's in private. I
 Running Behat from your host machine, causes issues because it can't read the ini correctly.
 Besides that, Behat requires root privileges. Therefore, the environment is hardcoded to root with empty password.
 
+Further, the `axyr/IDEAnnotator` and `Lekoala/DebugBar` are installed for devs. These do nothing out of the box, but do help you if you enable them in your `mysite/_config/config.yml`
+
 # Suggestions
 
 Yes, welcome.
