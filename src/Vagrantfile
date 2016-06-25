@@ -1,0 +1,31 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure(2) do |config|
+  config.vm.box = "twistedbytes/webserver"
+
+  if Vagrant.has_plugin?("vagrant-cachier")
+    # Configure cached packages to be shared between instances of the same base box.
+    # More info on http://fgrehm.viewdocs.io/vagrant-cachier/usage
+    config.cache.scope = :box
+    config.cache.enable :yum
+    config.cache.enable :composer
+  end
+
+  config.vm.network "private_network", ip: "192.168.50.100"
+  # Create a forwarded port mapping which allows access to a specific port
+  config.vm.network "forwarded_port", guest: 80, host: 8080, host_ip: '127.0.0.1', auto_correct: true
+  config.vm.network "forwarded_port", guest: 3306, host: 3306, host_ip: '127.0.0.1', auto_correct: true
+  # for mailcatcher
+  config.vm.network "forwarded_port", guest: 1080, host: 1080, host_ip: '127.0.0.1', auto_correct: true
+
+  config.vm.synced_folder "docroot", "/data/site/docroot", create: true, owner: 'defaultsite', group: 'defaultsite'
+  config.vm.synced_folder "other/logs", "/data/logs", create: true, owner: 'defaultsite', group: 'defaultsite'
+  config.vm.synced_folder "other/private", "/data/private", create: true, owner: 'defaultsite', group: 'defaultsite'
+
+  config.vm.provision "shell", run: 'always', inline: <<SCRIPT
+       /usr/local/bin/autorun.sh
+       # systemctl restart mysql
+SCRIPT
+
+end
