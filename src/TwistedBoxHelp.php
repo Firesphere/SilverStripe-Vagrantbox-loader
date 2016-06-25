@@ -6,7 +6,7 @@ class TwistedBoxHelp
     public static function help()
     {
         echo "TwistedBox. Create a new TwistedBytes based Vagrant box for development.\n
-        This is the SilverStripe 3.4 version\n\nUsage:\n";
+        This is the SilverStripe master (4.0 alpha) version\n\nUsage:\n";
         foreach(self::getActions() as $action => $info) {
             echo "php vagrantrunner.phar $action";
             if(!empty($info['unnamedArgs'])) {
