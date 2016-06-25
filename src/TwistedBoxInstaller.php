@@ -38,7 +38,7 @@ class TwistedBoxInstaller
         $deleteGitDir = false;
         if ($gitSource === null) {
             echo "\nCreating Silverstripe Base in docroot\n";
-            $gitSource = 'git@github.com:silverstripe/silverstripe-installer.git';
+            $gitSource = 'git@github.com:silverstripe/silverstripe-installer.git -b 3.4';
             $deleteGitDir = true;
         } else {
             echo "\nCloning your base project in docroot\nRemove the .git directory before running git init\n";
