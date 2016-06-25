@@ -1,28 +1,22 @@
 <?php
 
-/**
- * Created by IntelliJ IDEA.
- * User: simon
- * Date: 25/06/16
- * Time: 18:01
- */
 class TwistedBoxHelp
 {
 
-
     public static function help()
     {
-        echo "TwistedBox. Create a new TwistedBytes based Vagrant box for development.\n\nUsage:\n";
+        echo "TwistedBox. Create a new TwistedBytes based Vagrant box for development.\n
+        This is the SilverStripe 3.4 version\n\nUsage:\n";
         foreach(self::getActions() as $action => $info) {
             echo "php vagrantrunner.phar $action";
             if(!empty($info['unnamedArgs'])) {
-                foreach($info['unnamedArgs'] as $arg) echo " ($arg)";
+                foreach($info['unnamedArgs'] as $arg) echo " [$arg]";
             }
             if(!empty($info['namedFlags'])) {
-                foreach($info['namedFlags'] as $arg) echo " (--$arg)";
+                foreach($info['namedFlags'] as $arg) echo " [--$arg]";
             }
             if(!empty($info['namedArgs'])) {
-                foreach($info['namedArgs'] as $arg) echo " --$arg=\"$arg value\"";
+                foreach($info['namedArgs'] as $key => $arg) echo " --$key=\"$arg\"";
             }
             echo "\n  {$info['description']}\n\n";
         }
@@ -37,7 +31,7 @@ class TwistedBoxHelp
             ),
             'init'    => array(
                 'description' => 'Start a new system with this projectname. Git source is optional. Without it, a bare SilverStripe installation will be created',
-                'unnamedArgs' => array('projectname', 'Git source URL/SSH'),
+                'unnamedArgs' => array('projectname', 'Git repository URL'),
             ),
             'destroy' => [
                 'description' => "Destroy a project's Vagrant box",

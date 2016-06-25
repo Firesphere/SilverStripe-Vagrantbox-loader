@@ -1,0 +1,15 @@
+{
+  "name": "firesphere/twistedbox-loader",
+  "description": "CLI tool to quickly initiate a base TwistedBytes Vagrant box with SilverStripe",
+  "license": "BSD-3-Clause",
+  "authors": [
+    {
+      "name": "Simon Erkelens",
+      "email": "simonerkelens@silverstripe.com"
+    }
+  ],
+  "autoload": {
+    "classmap": [ "src/" ]
+  },
+  "require": {}
+}

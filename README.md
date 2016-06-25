@@ -17,7 +17,9 @@ Assumed is a SilverStripe installation. It will set you up with a working system
 
 # Usage
 
-Download the .phar file to your root where you have your sites.
+Download the .phar file from the build directory to your root where you have your sites.
+
+For example, if all your sites are located in `users/sites`, put the vagrantrunner.phar in that directory. Sites will be created in subdirectories of the .phar file's location.
 
 ## To start a bare SilverStripe project
 
@@ -40,6 +42,8 @@ After running the init, your box is ready to go. The admin username and password
 
 Following SilverStripe versioning. So version 3.4 will install a base SilverStripe 3.4, but master will install SilverStripe Master.
 
+All are sub-versioned in the branch. So version/3.4/1.0 is version 1.0 for SilverStripe 3.4
+
 # Suggested Vagrant plugins
 
 * [vagrant-cachier](http://fgrehm.viewdocs.io/vagrant-cachier/)
@@ -51,6 +55,15 @@ Running Behat from your host machine, causes issues because it can't read the in
 Besides that, Behat requires root privileges. Therefore, the environment is hardcoded to root with empty password.
 
 Further, the `axyr/IDEAnnotator` and `Lekoala/DebugBar` are installed for devs. These do nothing out of the box, but do help you if you enable them in your `mysite/_config/config.yml`
+
+# Todo
+
+* Make the phar globally usable.
+* Clean up some code maybe
+* Add smoketests
+* Make a website for this project
+* Make the box not just Twisted Bytes, but give a selection of boxes?
+*
 
 # Suggestions
 
