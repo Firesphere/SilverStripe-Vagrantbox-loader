@@ -46,17 +46,15 @@ class TwistedBoxInstaller
         if ($gitSource === null) {
             echo "\nCreating Silverstripe Base in docroot";
             $gitSource = 'git@github.com:silverstripe/silverstripe-installer.git -b ' . $version;
-        } else {
-            echo "\nCloning your base project in docroot\n";
         }
         echo "\nThis shouldn't take too long\n";
         shell_exec('cd ' . $projectName . ';git clone ' . $gitSource . ' docroot');
-        copy(__DIR__ . '/resources/_ss_environment.php', $projectName . '/docroot/_ss_environment.php');
+        copy(__DIR__ . '/../resources/_ss_environment.php', $projectName . '/docroot/_ss_environment.php');
         echo "\nCreating SilverStripe Cache folder\n";
         if (!@mkdir("$projectName/docroot/silverstripe-cache") && !is_dir("$projectName/docroot/silverstripe-cache")) {
-            echo "\nFailed creating silverstripe cache folder";
+            echo "Failed creating silverstripe cache folder";
         }
-        echo "\nSilverStripe base installation created\nBe aware the git repository is still pointing to the SilverStripe Installer!";
+        echo "SilverStripe base installation created\nBe aware the git repository is still pointing to the SilverStripe Installer!";
     }
 
 
@@ -65,8 +63,7 @@ class TwistedBoxInstaller
      */
     private function runComposer($projectName)
     {
-        echo "\nRunning composer";
-        shell_exec('cd ' . $projectName . '/docroot;composer update');
+        shell_exec('cd ' . $projectName . '/docroot;composer install');
         echo "\nSystem ready to run now, visit http://localhost:8080 to see your website\n\n";
     }
 

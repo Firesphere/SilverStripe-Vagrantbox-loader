@@ -55,13 +55,13 @@ class InstallationWizard
      */
     private function listTags()
     {
-        $tags = shell_exec('git ls-remote --tags git@github.com:silverstripe/silverstripe-installer.git');
+        $tags = shell_exec('git ls-remote --heads git@github.com:silverstripe/silverstripe-installer.git');
         $tags = array_reverse(explode("\n", $tags));
-        $tags = array_splice($tags, 0, 40);
+        $tags = array_splice($tags, 0, 10);
         $i = 1;
         foreach ($tags as $key => $tag) {
-            list($sha, $tagName) = explode('refs/tags/', $tag);
-            if (strlen($tagName) === 5) {
+            list($sha, $tagName) = explode('refs/heads/', $tag);
+            if (strlen($tagName) < 6 && $tagName != '') {
                 $return[$i++] = $tagName;
             }
         }
@@ -69,7 +69,6 @@ class InstallationWizard
         foreach ($return as $key => $value) {
             echo $key . ') ' . $value . "\n";
         }
-
         return $return;
     }
 

@@ -16,7 +16,7 @@ class VagrantWorker
      */
     public static function startVagrant($projectName)
     {
-        echo "\nBooting Vagrant machine, please have a bit of patience!";
+        echo "\nBooting Vagrant machine, please have a bit of patience!\n";
         copy(__DIR__ . '/../resources/Vagrantfile', $projectName . '/Vagrantfile');
         shell_exec('cd ' . $projectName . ';vagrant up');
         echo shell_exec('cd '. $projectName . ';vagrant status');
