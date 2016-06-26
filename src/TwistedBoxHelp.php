@@ -1,12 +1,21 @@
 <?php
 
+/**
+ * Class TwistedBoxHelp
+ * 
+ * Show the help-texts for TwistedBox
+ * 
+ * @author Simon `Sphere` Erkelens
+ */
 class TwistedBoxHelp
 {
 
     public static function help()
     {
-        echo "TwistedBox. Create a new TwistedBytes based Vagrant box for development.\n
-        This is the SilverStripe 3.4 version\n\nUsage:\n";
+        echo "TwistedBox. Create a new TwistedBytes based Vagrant box for development.\n"
+        ."This is the SilverStripe 3.4 version\n"
+            ."Global installation: Copy vagrantrunner.phar to /usr/local/bin/vagrantrunner\n"
+        ."\nUsage:\n";
         foreach(self::getActions() as $action => $info) {
             echo "php vagrantrunner.phar $action";
             if(!empty($info['unnamedArgs'])) {
