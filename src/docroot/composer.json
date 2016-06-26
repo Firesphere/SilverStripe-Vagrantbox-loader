@@ -7,9 +7,7 @@
     "silverstripe/framework": "dev-master"
   },
   "require-dev": {
-    "phpunit/PHPUnit": "~3.7",
-    "axyr/silverstripe-ideannotator": "~2",
-    "lekoala/silverstripe-debugbar": "dev-master"
+    "phpunit/PHPUnit": "~3.7"
   },
   "config": {
     "process-timeout": 600
