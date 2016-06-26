@@ -9,44 +9,12 @@
  */
 class TwistedBoxInstaller
 {
-
-    public function projectWizard($args)
-    {
-        $handle = fopen("php://stdin", "r");
-        $args[1] = 'init';
-        // @todo This is for the future, to support box-selection
-//    echo "Please select your preferred box.\n";
-//    echo "1) Twisted Bytes\n"
-//        . "2) Better Brief\n"
-//        . "3) SilverStripe Platform\n";
-//    $boxID = fgets($handle);
-//    echo "Selected " . $boxes[(int)$boxID];
-        echo "\nEnter your project name: ";
-        $args[2] = trim(fgets($handle));
-        echo "\nIs this a clean project [Y/n]: ";
-        $clean = fgets($handle);
-        if (strtolower(trim($clean)) === 'y') {
-            $repositoryType = "a clean repository";
-        } else {
-            echo "Please enter your git repository URL: ";
-            $repositoryURL = fgets($handle);
-            $repoTest = shell_exec('git ls-remote ' . $repositoryURL . '> /dev/null 2>&1');
-            if ($repoTest === null) {
-                throw new LogicException("Not a valid repository");
-            }
-            $repositoryType = "an existing repository from " . $repositoryURL;
-            $args[3] = trim($repositoryURL);
-        }
-        echo "\nCreating Vagrant box with " . $repositoryType;
-
-        return $args;
-    }
-
     /**
      * @param string $projectName
      * @param null|string $gitSource
+     * @param null|string $version
      */
-    public function setUp($projectName, $gitSource = null)
+    public function setUp($projectName, $gitSource = null, $version = null)
     {
 
         echo "\nCreating project $projectName\n";
@@ -54,7 +22,7 @@ class TwistedBoxInstaller
             if (!mkdir($projectName) && !is_dir($projectName)) {
                 throw new RuntimeException("Error creating project $projectName\n");
             }
-            $this->installBase($projectName, $gitSource);
+            $this->installBase($projectName, $gitSource, $version);
             VagrantWorker::startVagrant($projectName);
             $this->runComposer($projectName);
         } else {
@@ -65,13 +33,18 @@ class TwistedBoxInstaller
     /**
      * @param string $projectName
      * @param null|string $gitSource
+     * @param null|string $version
      */
-    private function installBase($projectName, $gitSource = null)
+    private function installBase($projectName, $gitSource = null, $version = null)
     {
         $deleteGitDir = false;
+        if($version === null && $gitSource !== null) {
+            echo "\nNo version constraint found, falling back to the latest stable version\n";
+            $version = '3.4.0';
+        }
         if ($gitSource === null) {
             echo "\nCreating Silverstripe Base in docroot";
-            $gitSource = 'git@github.com:silverstripe/silverstripe-installer.git -b master';
+            $gitSource = 'git@github.com:silverstripe/silverstripe-installer.git -b ' . $version;
             $deleteGitDir = true;
         } else {
             echo "\nCloning your base project in docroot\n";
@@ -81,8 +54,6 @@ class TwistedBoxInstaller
         copy(__DIR__ . '/resources/_ss_environment.php', $projectName . '/docroot/_ss_environment.php');
         if ($deleteGitDir) {
             echo "\nNew empty project, Deleting git root from silverstripe-installer";
-            shell_exec("rm -rf $projectName/docroot/.git");
-            echo "\nInitialising empty repository in docroot";
             shell_exec("cd $projectName/docroot;git init");
         }
         echo "\nCreating SilverStripe Cache folder\n";
@@ -99,7 +70,7 @@ class TwistedBoxInstaller
     private function runComposer($projectName)
     {
         echo "\nRunning composer";
-        copy(__DIR__ . '/resources/composer.json', $projectName . '/docroot/composer.json');
+        //copy(__DIR__ . '/../resources/composer.json', $projectName . '/docroot/composer.json');
         shell_exec('cd ' . $projectName . '/docroot;composer update');
         echo "\nSystem ready to run now, visit http://localhost:8080 to see your website\n\n";
     }
