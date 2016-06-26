@@ -16,6 +16,8 @@ class TwistedBoxInstaller
      */
     public static function setUp($projectName, $gitSource = null)
     {
+        echo "\nShutting down all VirtualBox vagrant machines\nDon't worry, no data is lost\n";
+        shell_exec('vagrant global-status | grep virtualbox | cut -c 1-9 | while read line; do echo $line; vagrant halt $line; done;');
         echo "\nCreating project $projectName\n";
         if (!file_exists($projectName)) {
             if(!mkdir($projectName) && !is_dir($projectName)) {
