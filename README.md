@@ -15,11 +15,15 @@ Assumed is a SilverStripe installation. It will set you up with a working system
 * Git
 * PHP 5.6 or higher
 
-# Usage
+# Installation
 
 Download the .phar file from the build directory to your root where you have your sites.
 
 For example, if all your sites are located in `users/sites`, put the vagrantrunner.phar in that directory. Sites will be created in subdirectories of the .phar file's location.
+
+Optionally, install the phar globally by copying it to `/usr/local/bin/vagrantrunner`.
+
+# Usage
 
 ## To start a bare SilverStripe project
 
@@ -54,11 +58,8 @@ For testing purposes, we're not using the ini configuration that's in private. I
 Running Behat from your host machine, causes issues because it can't read the ini correctly.
 Besides that, Behat requires root privileges. Therefore, the environment is hardcoded to root with empty password.
 
-Further, the `axyr/IDEAnnotator` and `Lekoala/DebugBar` are installed for devs. These do nothing out of the box, but do help you if you enable them in your `mysite/_config/config.yml`
-
 # Todo
 
-* Make the phar globally usable.
 * Clean up some code maybe
 * Add smoketests
 * Make a website for this project

@@ -2,7 +2,7 @@
 
 /**
  * Class TwistedBoxInstaller
- * 
+ *
  * Base install system to create a new TwistedBytes Vagrantbox.
  *
  * @author Simon `Sphere` Erkelens
@@ -20,7 +20,7 @@ class TwistedBoxInstaller
         shell_exec('vagrant global-status | grep virtualbox | cut -c 1-9 | while read line; do echo $line; vagrant halt $line; done;');
         echo "\nCreating project $projectName\n";
         if (!file_exists($projectName)) {
-            if(!mkdir($projectName) && !is_dir($projectName)) {
+            if (!mkdir($projectName) && !is_dir($projectName)) {
                 throw new RuntimeException("Error creating project $projectName");
             }
             self::installBase($projectName, $gitSource);
@@ -48,14 +48,16 @@ class TwistedBoxInstaller
         echo "\nThis shouldn't take too long\n";
         shell_exec('cd ' . $projectName . ';git clone ' . $gitSource . ' docroot');
         copy(__DIR__ . '/docroot/_ss_environment.php', $projectName . '/docroot/_ss_environment.php');
-        if($deleteGitDir) {
+        if ($deleteGitDir) {
             echo "\nNew empty project, Deleting git root from silverstripe-installer\n";
             shell_exec("rm -rf $projectName/docroot/.git");
             echo "\nInitialising empty repository in docroot\n";
             shell_exec("cd $projectName/docroot;git init");
         }
         echo "\nCreating SilverStripe Cache folder\n";
-        mkdir("$projectName/docroot/silverstripe-cache");
+        if (!@mkdir("$projectName/docroot/silverstripe-cache") && !is_dir("$projectName/docroot/silverstripe-cache")) {
+            echo "\nFailed creating silverstripe cache folder\n";
+        }
         echo "\nSilverStripe base installation created\n";
     }
 
@@ -97,7 +99,8 @@ class TwistedBoxInstaller
     /**
      * @param string $projectName
      */
-    public static function halt($projectName) {
+    public static function halt($projectName)
+    {
         echo "\nHalting $projectName's Vagrantmachine";
         shell_exec('cd ' . $projectName . ';vagrant halt');
         echo "\nMachine halted\n";
@@ -106,7 +109,8 @@ class TwistedBoxInstaller
     /**
      * @param string $projectName
      */
-    public static function reload($projectName) {
+    public static function reload($projectName)
+    {
         echo "\nHalting $projectName's Vagrantmachine";
         shell_exec('cd ' . $projectName . ';vagrant halt');
         echo "\nMachine halted\n";
