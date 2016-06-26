@@ -3,7 +3,7 @@
 /**
  * Class TwistedBoxInstaller
  * 
- * Base install system to create a new TwistedBytes box system.
+ * Base install system to create a new TwistedBytes Vagrantbox.
  *
  * @author Simon `Sphere` Erkelens
  */
@@ -110,7 +110,7 @@ class TwistedBoxInstaller
         echo "\nHalting $projectName's Vagrantmachine";
         shell_exec('cd ' . $projectName . ';vagrant halt');
         echo "\nMachine halted\n";
-        echo "\Starting $projectName's Vagrantmachine";
+        echo "\nStarting $projectName's Vagrantmachine";
         shell_exec('cd ' . $projectName . ';vagrant up');
         echo "\nMachine started\n";
     }

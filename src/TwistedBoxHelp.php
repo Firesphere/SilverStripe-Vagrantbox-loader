@@ -1,5 +1,12 @@
 <?php
 
+/**
+ * Class TwistedBoxHelp
+ * 
+ * Show the help-texts for TwistedBox
+ * 
+ * @author Simon `Sphere` Erkelens
+ */
 class TwistedBoxHelp
 {
 
