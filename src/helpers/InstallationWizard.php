@@ -23,7 +23,7 @@ class InstallationWizard
 //    echo "Selected " . $boxes[(int)$boxID];
         echo "\nEnter your project name: ";
         $args[2] = trim(fgets($handle));
-        echo "\nIs this a clean project [Y/n]: ";
+        echo "\nIs this a new project [Y/n]: ";
         $clean = trim(fgets($handle));
         if (strtolower($clean) !== 'y' && $clean !== '') {
             echo 'Please enter your git repository URL: ';
@@ -35,11 +35,13 @@ class InstallationWizard
             $repositoryType = 'an existing repository from ' . $repositoryURL;
             $args[3] = trim($repositoryURL);
         } else {
+            echo "Fetching versions\n";
             $list = $this->listTags();
-            echo 'Please select a version: ';
+            echo 'Please select a version [1]: ';
             $versionChoice = trim(fgets($handle));
+            $versionChoice = trim($versionChoice) ?: 1;
             $args[4] = $list[$versionChoice];
-            $repositoryType = 'a clean repository from ' . $args[4];
+            $repositoryType = 'a clean repository with SilverStripe ' . $args[4];
         }
         echo "\nCreating Vagrant box with " . $repositoryType;
 
@@ -48,6 +50,7 @@ class InstallationWizard
 
     /**
      * List the available tags for installation
+     *
      * @return array
      */
     private function listTags()
@@ -62,12 +65,11 @@ class InstallationWizard
                 $return[$i++] = $tagName;
             }
         }
-        $return = array(
-            $i++ => 'master'
-        );
-        foreach($return as $key => $value) {
+        $return[$i] = 'master';
+        foreach ($return as $key => $value) {
             echo $key . ') ' . $value . "\n";
         }
+
         return $return;
     }
 
