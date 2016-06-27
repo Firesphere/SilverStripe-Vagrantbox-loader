@@ -4,9 +4,9 @@ $srcRoot = './src';
 $buildRoot = './build';
 
 $phar = new Phar(
-    $buildRoot . '/vagrantrunner.phar',
+    $buildRoot . '/silvervagrant.phar',
     FilesystemIterator::CURRENT_AS_FILEINFO | FilesystemIterator::KEY_AS_FILENAME,
-    'vagrantrunner.phar'
+    'silvervagrant.phar'
 );
 // start buffering. Mandatory to modify stub.
 $phar->startBuffering();
