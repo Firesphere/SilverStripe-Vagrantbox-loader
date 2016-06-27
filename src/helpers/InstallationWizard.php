@@ -1,6 +1,5 @@
 <?php
 
-
 class InstallationWizard
 {
 
@@ -15,12 +14,13 @@ class InstallationWizard
         $handle = fopen('php://stdin', 'r');
         $args[1] = 'init';
         // @todo This is for the future, to support box-selection
-//    echo "Please select your preferred box.\n";
-//    echo "1) Twisted Bytes\n"
-//        . "2) Better Brief\n"
+        echo "Please select your preferred box.\n";
+        echo "1) Twisted Bytes\n"
+            . "2) Better Brief\n";
 //        . "3) SilverStripe Platform\n";
-//    $boxID = fgets($handle);
-//    echo "Selected " . $boxes[(int)$boxID];
+        $boxID = trim(fgets($handle));
+        $args['box'] = $boxID;
+        echo "Selected " . DataHelper::$boxes[(int)$boxID];
         echo "\nEnter your project name: ";
         $args[2] = trim(fgets($handle));
         echo "\nIs this a new project [Y/n]: ";
@@ -39,7 +39,7 @@ class InstallationWizard
             $list = $this->listTags();
             echo 'Please select a version [1]: ';
             $versionChoice = trim(fgets($handle));
-            $versionChoice = trim($versionChoice) ?: 1;
+            $versionChoice = $versionChoice ?: 1;
             $args[4] = $list[$versionChoice];
             $repositoryType = 'a clean repository with SilverStripe ' . $args[4];
         }
@@ -69,6 +69,7 @@ class InstallationWizard
         foreach ($return as $key => $value) {
             echo $key . ') ' . $value . "\n";
         }
+
         return $return;
     }
 

@@ -1,13 +1,13 @@
 <?php
 
 /**
- * Class TwistedBoxHelp
+ * Class Vagrantrunner Help
  *
  * Show the help-texts for TwistedBox
  *
  * @author Simon `Sphere` Erkelens
  */
-class TwistedBoxHelp
+class VagrantrunnerHelp
 {
 
     public static function help()
