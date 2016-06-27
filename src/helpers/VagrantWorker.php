@@ -36,9 +36,9 @@ class VagrantWorker
                 copy(__DIR__ . '/../resources/Vagrantfile', $projectName . '/Vagrantfile');
                 break;
             case 2:
-                echo "\nCloning BetterBrief base installation files to project root";
+                echo "\nCloning BetterBrief base installation files to project root\n";
                 shell_exec("cd $projectName;git clone git@github.com:BetterBrief/vagrant-skeleton.git .");
-                echo "\nBase installation created. Booting machine. This might take a while";
+                echo "Base installation created. Booting machine. This might take a while\n";
                 break;
         }
 

@@ -9,9 +9,11 @@ if (count($argv) === 1) {
     $wizard = new InstallationWizard();
     $args = $wizard->projectWizard($args);
 }
+else {
+    echo "Suggested is to use the wizard, the direct method is now deprecated";
+}
 $selectedBox = array_key_exists('box', $args) ? DataHelper::$boxName[$args['box']] : 'TwistedBoxInstaller';
 $boxHelper = new $selectedBox();
-print_r($args);
 if ($args[1] === 'help') {
     VagrantrunnerHelp::help();
 } elseif ($args[1] === 'destroy' && isset($args[2])) {
@@ -20,7 +22,7 @@ if ($args[1] === 'help') {
     $boxHelper->setUp($args[2], $args[3], $args[4]);
 } elseif (count($args) > 1 && $args[1] !== 'destroy') {
     echo 'Command definition not found, assuming init a new project';
-    $boxHelper->setUp($args[1], $args[3]);
+    $boxHelper->setUp($args[1], $args['box'], $args[3]);
 } else {
     throw new LogicException('Unknown or incomplete command');
 }

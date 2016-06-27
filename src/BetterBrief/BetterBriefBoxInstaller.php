@@ -27,7 +27,7 @@ class BetterBriefBoxInstaller
             echo "WARNING: The default config might not suit you, you might need to update and reprovision\n";
             echo "WARNING: BetterBrief Box takes a long time to boot the first time!\n";
             VagrantWorker::startVagrant($projectName, 2);
-            SourceInstaller::installBase($projectName, $gitSource, $version);
+            SourceInstaller::installBase($projectName, 2, $gitSource, $version);
             SourceInstaller::runComposer($projectName, 2);
         } else {
             throw new LogicException("ERROR: Project ' . $projectName . ' already exists!\n");
