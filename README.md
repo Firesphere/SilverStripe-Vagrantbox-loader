@@ -1,6 +1,6 @@
 # Twisted Bytes Vagrant
 
-This is a base installer for the [Twisted Bytes Vagrant box](https://www.twistedbytes.nl/en/blog/php-vagrant-box/) plus [SilverStripe](https://silverstripe.org).
+This is a base installer for the [Twisted Bytes Vagrant box](https://www.twistedbytes.nl/en/blog/php-vagrant-box/) or the [BetterBrief box](https://github.com/BetterBrief/vagrant-skeleton/) plus [SilverStripe](https://silverstripe.org).
 
 It's a slightly customised version of the default installation.
 
@@ -29,13 +29,11 @@ Optionally, install the phar globally by copying it to `/usr/local/bin/vagrantru
 
 # Usage
 
-## To start a bare SilverStripe project
+## To start a new project
 
-`php vagrantrunner.phar init projectname`
+`php vagrantrunner.phar`
 
-## To start a project from existing Git sources
-
-`php vagrantrunner.phar init projectname git@github.com:yourProject.git`
+and follow instructions
 
 ## To destroy a box (to free up space)
 
@@ -44,7 +42,7 @@ Optionally, install the phar globally by copying it to `/usr/local/bin/vagrantru
 This will _not_ destroy your project files, only the Vagrant machine.
 
 
-After running the init, your box is ready to go. The admin username and password are: `admin:password`. Since it's a local isolated machine, this is not a security issue immediately, but you are free to change it.
+After running the init, your box is ready to go. The admin username and password are: `admin:password`  . Since it's a local isolated machine, this is not a security issue immediately, but you are free to change it.
 
 # Versioning
 
@@ -58,7 +56,7 @@ Version 1.0 is the final release before implementation of box selection.
 
 # Customisations
 
-For testing purposes, we're not using the ini configuration that's in private. I suggest on live sites, you do.
+For testing purposes, we're not using the ini configuration that's in private for TwistedBytes. I suggest on live sites, you do.
 Running Behat from your host machine, causes issues because it can't read the ini correctly.
 Besides that, Behat requires root privileges. Therefore, the environment is hardcoded to root with empty password.
 
