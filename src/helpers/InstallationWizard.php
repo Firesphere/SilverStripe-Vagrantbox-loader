@@ -13,7 +13,6 @@ class InstallationWizard
     {
         $handle = fopen('php://stdin', 'r');
         $args[1] = 'init';
-        // @todo This is for the future, to support box-selection
         echo "Please select your preferred box.\n";
         echo "1) Twisted Bytes\n"
             . "2) Better Brief\n";

@@ -2,17 +2,17 @@
 require_once('resources/Includes.php');
 
 $args = $argv;
-$boxID = 1;
+$args['box'] = 1;
 $args[3] = isset($argv[3]) ? $argv[3] : null;
 $args[4] = isset($args[4]) ? $args[4] : null;
 if (count($argv) === 1) {
     $wizard = new InstallationWizard();
     $args = $wizard->projectWizard($args);
-}
-else {
-    echo "Suggested is to use the wizard, the direct method is now deprecated";
+} else {
+    echo "Suggested is to use the wizard, the direct method is now deprecated\n\n";
 }
 $selectedBox = array_key_exists('box', $args) ? DataHelper::$boxName[$args['box']] : 'TwistedBoxInstaller';
+/** @var BetterBriefBoxInstaller|TwistedBoxInstaller $boxHelper */
 $boxHelper = new $selectedBox();
 if ($args[1] === 'help') {
     VagrantrunnerHelp::help();
